@@ -1,4 +1,5 @@
 # Atlas Application Toolkit
+
 [![Build Status](https://img.shields.io/travis/infobloxopen/atlas-app-toolkit/master.svg?label=build)](https://travis-ci.org/infobloxopen/atlas-app-toolkit)
 
 This repository provides common Go utilities and helpers that are reusable from project-to-project. The goal is to prevent code duplication by encouraging teams to use and contribute to toolkit libraries.
@@ -21,7 +22,7 @@ The following libraries have how-to guides included at the package level.
 
 #### Request Handling Tools
 
-[`requestid`](requestid) - gets the request ID from incoming requests (or creates a unique ID if it doesn't exist) 
+[`requestid`](requestid) - gets the request ID from incoming requests (or creates a unique ID if it doesn't exist)
 
 [`query`](query) - provides query parameter-specific helpers, like sorting, paging, and filtering resources
 
@@ -35,9 +36,9 @@ The following libraries have how-to guides included at the package level.
 
 [`server`](server) - provides a wrapper utility that manages a gRPC server and its REST gateway as a single unit
 
-[`gateway`](gateway) - creates a gRPC gateway with built-in REST syntax compliancy 
+[`gateway`](gateway) - creates a gRPC gateway with built-in REST syntax compliancy
 
-[`health`](health) -  helps developers add health and readiness checks to their gRPC services
+[`health`](health) - helps developers add health and readiness checks to their gRPC services
 
 #### Database Utilities
 
@@ -81,7 +82,8 @@ An example app that is based on api-toolkit can be found [here](https://github.c
 The following are toolkit-recommended utilities that are maintained in separate repositories.
 
 #### Validation
-We recommend to use [this validation plugin](https://github.com/lyft/protoc-gen-validate) to generate
+
+We recommend to use [this validation plugin](https://github.com/envoyproxy/protoc-gen-validate) to generate
 `Validate` method for your gRPC requests.
 
 As an alternative you may use [this plugin](https://github.com/mwitkow/go-proto-validators) too.
@@ -89,6 +91,7 @@ As an alternative you may use [this plugin](https://github.com/mwitkow/go-proto-
 Validation can be invoked "automatically" if you add [this](https://github.com/grpc-ecosystem/go-grpc-middleware/tree/master/validator) middleware as a gRPC server interceptor.
 
 #### Database Migrations
+
 The toolkit does not require any specific method for database provisioning and setup. However, if [golang-migrate](https://github.com/golang-migrate/migrate) or the [infobloxopen fork](https://github.com/infobloxopen/migrate) of it is used, a couple helper functions are provided [here](gorm/version.go) for verifying that the database version matches a required version without having to import the entire migration package.
 
 #### Documentation
@@ -209,4 +212,3 @@ generated in a bit unusual way:
 
 For convenience purposes there is an atlas-gentool image available which contains a pre-installed set of often used plugins.
 For more details see [infobloxopen/atlas-gentool](https://github.com/infobloxopen/atlas-gentool) repository.
-

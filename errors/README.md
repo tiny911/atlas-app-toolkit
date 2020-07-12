@@ -1,8 +1,9 @@
-
 # Errors
+
 To avoid burden of mapping errors returned from 3rd party libraries
 you can gather all error mappings in one place and put an interceptor
 provided by atlas-app-toolkit package in a middleware chain as following:
+
 ```go
 interceptor := errors.UnaryServerInterceptor(
 	// List of mappings
@@ -13,6 +14,7 @@ interceptor := errors.UnaryServerInterceptor(
 ```
 
 ## Contents
+
 1. <a href="#background">Background</a>
 1. <a href="#mappers">Error Mappers</a>
 1. <a href="#usage">Usage</a>
@@ -22,7 +24,9 @@ interceptor := errors.UnaryServerInterceptor(
 <a name="intro"></a>
 
 # Error Handling
+
 <a name="background"></a>
+
 ## Background
 
 This document is a brief overview of facilities provided by error handling
@@ -34,17 +38,19 @@ package. The rationale for implementing it are four noble reasons:
 1. Mapping from error to container should be performed automatically in gRPC interceptor.
 
 <a name="mappers"></a>
+
 ## Error Mappers
 
 Error mapper performs conditional mapping from one error message to another. Error mapping functions are passed to a gRPC Error interceptor and called against error returned from handler.
 
-Currently there are two mappers available: 
+Currently there are two mappers available:
+
 - ValidationErrors: error mapper and interceptor for protoc-gen-validate validation errors
-- PQErrors:  error mapper for go postgres driver 
+- PQErrors: error mapper for go postgres driver
 
 ## Error Container
 
-Error container is a data structure that implements Error interface and 
+Error container is a data structure that implements Error interface and
 GRPCStatus method, enabling passing it around as a conventional error from one
 side and as a protobuf Status to gRPC gateway from the other side.
 
@@ -52,7 +58,6 @@ There are several approaches exist to work with it:
 
 1. Single error mode
 1. Multiple errors mode
-
 
 ## Usage
 
@@ -136,7 +141,7 @@ Below we demonstrate a cases and customization techniques for mapping functions:
 ```go
 interceptor := errors.UnaryServerInterceptor(
 	// List of mappings
-	
+
 	// Base case: simply map error to an error container.
 	errors.NewMapping(fmt.Errorf("Some Error"), errors.NewContainer(/* ... */).WithDetail(/* ... */)),
 
@@ -168,8 +173,6 @@ interceptor := errors.UnaryServerInterceptor(
 
 Such model allows us to define our own error classes and map them appropriately as in
 example below:
-
-
 
 ```go
 // service validation code.
@@ -208,15 +211,14 @@ interceptor := errors.UnaryServerInterceptor(
 )
 ```
 
-
 <a name="validation"></a>
+
 # Validation Errors
 
     import "github.com/infobloxopen/atlas-app-toolkit/errors/mappers/validationerrors"
 
 `validationerrors` is a request contents validator server-side middleware for
 gRPC.
-
 
 ### Request Validator Middleware
 
@@ -225,50 +227,50 @@ messages of a gRPC request. In case of a
 validation failure, an `InvalidArgument` gRPC status is returned, along with
 the error that caused the validation failure.
 
-It is intended to be used with plugins like https://github.com/lyft/protoc-gen-validate, Go protocol buffers codegen
-plugins that create the `Validate` methods (including nested messages) based on declarative options in the `.proto` files themselves. 
+It is intended to be used with plugins like https://github.com/envoyproxy/protoc-gen-validate, Go protocol buffers codegen
+plugins that create the `Validate` methods (including nested messages) based on declarative options in the `.proto` files themselves.
 
-
-#### func  UnaryServerInterceptor
+#### func UnaryServerInterceptor
 
 ```go
 func UnaryServerInterceptor() grpc.UnaryServerInterceptor
 ```
+
 UnaryServerInterceptor returns a new unary server interceptor that validates
 incoming messages and returns a ValidationError.
 
 Invalid messages will be rejected with `InvalidArgument` and the error before reaching any userspace handlers.
 
-
-#### func  DefaultMapping
+#### func DefaultMapping
 
 ```go
 func DefaultMapping() errors.MapFunc
 ```
-DefaultMapping returns a mapper that parses through the lyft protoc-gen-validate errors and only returns a user friendly error. 
 
-Example Usage: 
+DefaultMapping returns a mapper that parses through the envoyproxy protoc-gen-validate errors and only returns a user friendly error.
+
+Example Usage:
 
 1. Add validationerrors and errors interceptors to your application:
 
-    ```go
-    errors.UnaryServerInterceptor(ErrorMappings...),
-    validationerrors.UnaryServerInterceptor(),
-    ```
+   ```go
+   errors.UnaryServerInterceptor(ErrorMappings...),
+   validationerrors.UnaryServerInterceptor(),
+   ```
 
-1. Create an ErrorMapping variable with all your mappings. 
+1. Create an ErrorMapping variable with all your mappings.
 1. Add DefaultMapping as part of your ErrorMapping variable
 
-     ```go
-    var ErrorMappings = []errors.MapFunc{
-        // Adding Default Validations Mapping
-        validationerrors.DefaultMapping(), 
+   ```go
+   var ErrorMappings = []errors.MapFunc{
+      // Adding Default Validations Mapping
+      validationerrors.DefaultMapping(),
 
-    }
-    ```
+   }
+   ```
 
 
-    Example return after DefaultMapping on a invalid email: 
+    Example return after DefaultMapping on a invalid email:
 
     ```json
     {
@@ -287,23 +289,23 @@ Example Usage:
 
 1. You can also add custom validation mappings:
 
-    ```go
-    var ErrorMappings = []errors.MapFunc{
-        // Adding custom Validation Mapping based on the known field and reason from lyft
-       errors.NewMapping(
-			errors.CondAnd(
-				validationerrors.CondValidation(),
-                validationerrors.CondFieldEq("primary_email"),
-				validationerrors.CondReasonEq("value must be a valid email address"),
-			),
-			errors.MapFunc(func(ctx context.Context, err error) (error, bool) {
-				vErr, _ := err.(validationerrors.ValidationError)
-				return errors.NewContainer(codes.InvalidArgument, "Custom error message for field: %v reason: %v", vErr.Field, vErr.Reason), true
-            }),
-       ),
-    }
+   ```go
+   var ErrorMappings = []errors.MapFunc{
+       // Adding custom Validation Mapping based on the known field and reason from envoyproxy
+      errors.NewMapping(
+   		errors.CondAnd(
+   			validationerrors.CondValidation(),
+               validationerrors.CondFieldEq("primary_email"),
+   			validationerrors.CondReasonEq("value must be a valid email address"),
+   		),
+   		errors.MapFunc(func(ctx context.Context, err error) (error, bool) {
+   			vErr, _ := err.(validationerrors.ValidationError)
+   			return errors.NewContainer(codes.InvalidArgument, "Custom error message for field: %v reason: %v", vErr.Field, vErr.Reason), true
+           }),
+      ),
+   }
 
-    ```
+   ```
 
 <a name="pqerrors"></a>
 
@@ -313,22 +315,20 @@ Example Usage:
 
 `pqerrors` is a error mapper for postgres.
 
-
-
 Dedicated error mapper for go postgres driver (lib/pq.Error) package is included under
 the path of github.com/atlas-app-toolkit/errors/mappers/pqerrors. This package includes
 following components:
 
- * Condition function CondPQ, CondConstraintEq, CondCodeEq for conditions involved in \*pq.Error detection,
-specific constraint name and specific status code of postgres error respectively.
+- Condition function CondPQ, CondConstraintEq, CondCodeEq for conditions involved in \*pq.Error detection,
+  specific constraint name and specific status code of postgres error respectively.
 
- * ToMapFunc function that converts mapping function that deals with pq.Error to avoid burden of
-casting errors back and forth.
+- ToMapFunc function that converts mapping function that deals with pq.Error to avoid burden of
+  casting errors back and forth.
 
- * Default mapping function that can be included into errors interceptor for FK contraints (NewForeignKeyMapping),
-RESTRICT (NewRestrictMapping), NOT NULL (NewNotNullMapping), PK/UNIQUE (NewUniqueMapping)
+- Default mapping function that can be included into errors interceptor for FK contraints (NewForeignKeyMapping),
+  RESTRICT (NewRestrictMapping), NOT NULL (NewNotNullMapping), PK/UNIQUE (NewUniqueMapping)
 
-Example Usage: 
+Example Usage:
 
 ```go
 import (
@@ -344,7 +344,6 @@ interceptor := errors.UnaryServerInterceptor(
 ```
 
 Any violation of UNIQUE constraint "email_address_key" will result in following error:
-
 
 ```json
 {

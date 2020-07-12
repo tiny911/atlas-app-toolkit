@@ -19,7 +19,7 @@
   version = ">=1.4.1"
 
 [[override]]
-  name = "github.com/lyft/protoc-gen-validate"
+  name = "github.com/envoyproxy/protoc-gen-validate"
   version = ">=0.0.7"
 
 [[constraint]]

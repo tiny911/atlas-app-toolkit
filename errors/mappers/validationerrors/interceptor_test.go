@@ -82,10 +82,10 @@ func TestUnaryServerInterceptor_ValidationErrors(t *testing.T) {
 			"NotValidationError",
 			mockNotValidation{
 				Field:  "Other validator",
-				Reason: "Not lyft validation",
+				Reason: "Not envoyproxy validation",
 				Key:    true,
 			},
-			fmt.Errorf("invalid key for Request.Other validator: Not lyft validation"),
+			fmt.Errorf("invalid key for Request.Other validator: Not envoyproxy validation"),
 		},
 		{
 			"ValidationErrorNoCause",
