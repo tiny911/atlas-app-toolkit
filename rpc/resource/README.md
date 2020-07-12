@@ -20,7 +20,7 @@ You could use it to define identifiers in your proto messages, e.g.
 ```proto
 syntax = "proto3";
 
-import "github.com/infobloxopen/atlas-app-toolkit/rpc/resource/resource.proto";
+import "github.com/tiny/atlas-app-toolkit/rpc/resource/resource.proto";
 
 message MyMessage {
     atlas.rpc.Identifier id = 1;
@@ -31,7 +31,7 @@ message MyMessage {
 ```
 
 Please give a read to [README](../../gorm/resource/README.md) of `gorm/resource`
-package to see how it could be used with gorm and `protoc-gen-gorm` generated code. 
+package to see how it could be used with gorm and `protoc-gen-gorm` generated code.
 
 ## Utility functions
 
@@ -46,13 +46,13 @@ package main
 
 import (
 	"fmt"
-	
-	"github.com/infobloxopen/atlas-app-toolkit/rpc/resource"
+
+	"github.com/tiny/atlas-app-toolkit/rpc/resource"
 )
 
 func main() {
     var id *resource.Identifier
-	
+
     if resource.Nil(id) {
     	fmt.Println("resource is nil identifier")
     }

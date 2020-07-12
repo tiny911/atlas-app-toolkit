@@ -2,16 +2,14 @@
 
 This package contains helper functions that support creating, configuring, and running a gRPC REST gateway that is REST syntax compliant. Google already provides a lot of documentation related to the gRPC gateway, so this README will mostly serve to link to existing docs.
 
-
 - Starting and stopping Docker containers inside Go tests
 - Creating JSON Web Tokens for testing gRPC and REST requests
 - Launching a Postgres database to tests against
 - Building and executing Go binaries
- 
+
 The gRPC gateway `protoc` plugin allows a gRPC service to. The official gRPC gateway repository offers a nice, succinct explanation.
 
 > gRPC is great — it generates API clients and server stubs in many programming languages, it is fast, easy-to-use, bandwidth-efficient and its design is combat-proven by Google. However, you might still want to provide a traditional RESTful API as well. Reasons can range from maintaining backwards-compatibility, supporting languages or clients not well supported by gRPC to simply maintaining the aesthetics and tooling involved with a RESTful architecture.
-
 
 ## Define REST Endpoints in Proto Schema
 
@@ -37,13 +35,13 @@ message GetMessageRequest {
   string user_id = 2;
 }
 ```
-This enables the following two alternative HTTP JSON to RPC mappings: 
 
-| HTTP Verb | REST Endpoint                     | RPC                                                 |
-| ----------|-----------------------------------|---------------------------------------------------- |
-| `GET`     | `/v1/messages/123456`             | `GetMessage("123456")`                  |
-| `GET`     | `/v1/users/me/messages/123456`    | `GetMessage("me", "123456")`    |
+This enables the following two alternative HTTP JSON to RPC mappings:
 
+| HTTP Verb | REST Endpoint                  | RPC                          |
+| --------- | ------------------------------ | ---------------------------- |
+| `GET`     | `/v1/messages/123456`          | `GetMessage("123456")`       |
+| `GET`     | `/v1/users/me/messages/123456` | `GetMessage("me", "123456")` |
 
 ## HTTP Headers
 
@@ -79,7 +77,7 @@ You can also use the helper function provided in this package.
 import (
     "context"
 
-    "github.com/infobloxopen/atlas-app-toolkit/gateway"
+    "github.com/tiny/atlas-app-toolkit/gateway"
 )
 
 func (s *myServiceImpl) MyMethod(ctx context.Context, req *MyRequest) (*MyResponse, error) {
@@ -138,7 +136,7 @@ To override this behavior, the gRPC Gateway documentation recommends overwriting
 
 ```go
 import (
-	"github.com/infobloxopen/atlas-app-toolkit/gateway"
+	"github.com/tiny/atlas-app-toolkit/gateway"
 )
 
 func init() {
@@ -167,7 +165,7 @@ Also you may use shortcuts like `SetCreated`, `SetUpdated`, and `SetDeleted`.
 
 ```go
 import (
-    "github.com/infobloxopen/atlas-app-toolkit/gateway"
+    "github.com/tiny/atlas-app-toolkit/gateway"
 )
 
 func (s *myService) MyMethod(req *MyRequest) (*MyResponse, error) {
@@ -177,6 +175,7 @@ func (s *myService) MyMethod(req *MyRequest) (*MyResponse, error) {
 ```
 
 ### Response Format
+
 Unless another format is specified in the request `Accept` header that the service supports, services render resources in responses in JSON format by default.
 
 Services must embed their response in a Success JSON structure.
@@ -184,6 +183,7 @@ Services must embed their response in a Success JSON structure.
 The Success JSON structure provides a uniform structure for expressing normal responses using a structure similar to the Error JSON structure used to render errors. The structure provides an enumerated set of codes and associated HTTP statuses (see Errors below) along with a message.
 
 The Success JSON structure has the following format. The results tag is optional and appears when the response contains one or more resources.
+
 ```json
 {
   "success": {
@@ -202,6 +202,7 @@ To allow compatibility with existing systems, the results tag name can be change
 #### Example Success Responses
 
 Response with no results
+
 ```json
 {
   "success": {
@@ -213,6 +214,7 @@ Response with no results
 ```
 
 Response with results
+
 ```json
 {
   "success": {
@@ -242,6 +244,7 @@ Response with results
 ```
 
 Response for get by id operation
+
 ```json
 {
   "success": {
@@ -250,15 +253,16 @@ Response for get by id operation
     "code": "OK"
   },
   "results": {
-      "account_id": 4,
-      "created_at": "2018-05-06T03:53:27.651Z",
-      "updated_at": "2018-05-06T03:53:27.651Z",
-      "id": 5
-   }
+    "account_id": 4,
+    "created_at": "2018-05-06T03:53:27.651Z",
+    "updated_at": "2018-05-06T03:53:27.651Z",
+    "id": 5
+  }
 }
 ```
 
 Response with results and service-defined results tag `rpz_hits`
+
 ```json
 {
   "success": {
@@ -300,9 +304,11 @@ Response with results and service-defined results tag `rpz_hits`
 ## Errors
 
 ### Format
+
 Method error responses are rendered in the Error JSON format. The Error JSON format is similar to the Success JSON format.
 
 The Error JSON structure has the following format. The details tag is optional and appears when the service provides more details about the error.
+
 ```json
 {
   "error": {
@@ -336,7 +342,7 @@ Here's an example that shows how to use [`DefaultProtoErrorHandler`](gateway/err
 ```go
 import (
     "github.com/grpc-ecosystem/grpc-gateway/runtime"
-    "github.com/infobloxopen/atlas-app-toolkit/gateway"
+    "github.com/tiny/atlas-app-toolkit/gateway"
 
     "github.com/yourrepo/yourapp"
 )

@@ -24,6 +24,7 @@ var people []Person
 db.Find(&people)
 ...
 ```
+
 ### Applying query.Sorting
 
 ```golang
@@ -41,6 +42,7 @@ var people []Person
 db.Find(&people)
 ...
 ```
+
 ### Applying query.Pagination
 
 ```golang
@@ -53,6 +55,7 @@ var people []Person
 db.Find(&people)
 ...
 ```
+
 ### Applying query.FieldSelection
 
 ```golang
@@ -79,7 +82,6 @@ db.Find(&people)
 ...
 ```
 
-
 ## Transaction Management
 
 We provide transaction management by offering `gorm.Transaction` wrapper and `gorm.UnaryServerInterceptor`.
@@ -105,7 +107,7 @@ The created transaction is stored in `context.Context` and passed to the request
 
 ```go
 import (
-	"github.com/infobloxopen/atlas-app-toolkit/gorm"
+	"github.com/tiny/atlas-app-toolkit/gorm"
 )
 
 func (s *MyService) MyMethod(ctx context.Context, req *MyMethodRequest) (*MyMethodResponse, error) {

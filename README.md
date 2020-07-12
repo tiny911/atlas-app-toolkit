@@ -1,6 +1,6 @@
 # Atlas Application Toolkit
 
-[![Build Status](https://img.shields.io/travis/infobloxopen/atlas-app-toolkit/master.svg?label=build)](https://travis-ci.org/infobloxopen/atlas-app-toolkit)
+[![Build Status](https://img.shields.io/travis/tiny/atlas-app-toolkit/master.svg?label=build)](https://travis-ci.org/tiny/atlas-app-toolkit)
 
 This repository provides common Go utilities and helpers that are reusable from project-to-project. The goal is to prevent code duplication by encouraging teams to use and contribute to toolkit libraries.
 

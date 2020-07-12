@@ -17,7 +17,7 @@ If you also use the grpc_logrus interceptor, the request-id middleware should be
 import (
   ...
   ...
-  "github.com/infobloxopen/atlas-app-toolkit/requestid"
+  "github.com/tiny/atlas-app-toolkit/requestid"
 )
 func main() {
     server := grpc.NewServer(
@@ -37,8 +37,10 @@ func main() {
 ## Extracting the Request-ID
 
 Once the middleware is included, the following function
+
 ```golang
 rid, ok := requestid.FromContext(ctx)
 ```
+
 can extract the request-id anywhere it is needed.
 The `ok` field returns whether the request id was actually found in the provided context.

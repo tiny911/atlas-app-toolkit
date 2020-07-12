@@ -11,7 +11,7 @@ By default if PB resource is undefined (`nil`) the `atlas.rpc.Identifier` is con
 Atlas References, otherwise the Resource ID part is returned as string value.
 
 If `driver.Value` is `nil` default codecs returns `nil` `atlas.rpc.Identifier`, if you want to override such behavior in order to return empty
-`atlas.rpc.Identifier` that could be rendered to `null` string in JSON - 
+`atlas.rpc.Identifier` that could be rendered to `null` string in JSON -
 
 If `resource.Codec` is not registered for a PB type the value of identifier is converted from `driver.Value` to a string.
 If Resource Type is not found it is populated from the name of PB type,
@@ -55,14 +55,14 @@ The Postgres types from tags are converted as follows:
 ```proto
 syntax = "proto3";
 
-import "github.com/infobloxopen/atlas-app-toolkit/rpc/resource/resource.proto";
+import "github.com/tiny/atlas-app-toolkit/rpc/resource/resource.proto";
 import "github.com/infobloxopen/protoc-gen-gorm/options/gorm.proto";
 
 option go_package = "github.com/yourapp/pb;pb";
 
 message A {
     option (gorm.opts).ormable = true;
-    
+
     atlas.rpc.Identifier id = 1 [(gorm.field).tag = {type: "integer" primary_key: true}];
     string value = 2;
     repeated B b_list = 3; // has many
@@ -71,7 +71,7 @@ message A {
 
 message B {
     option (gorm.opts).ormable = true;
-    
+
     atlas.rpc.Identifier id = 1 [(gorm.field).tag = {type: "integer" primary_key: true}];
     string value = 2;
      // foreign key to A  parent. !!! Will be set to the type of A.id
@@ -81,6 +81,7 @@ message B {
 ```
 
 In JSON it could look like
+
 ```json
 {
   "id": "someapp/resource:a/1",
@@ -96,8 +97,9 @@ In JSON it could look like
 ```
 
 The generated code could be:
+
 ```go
-import "github.com/infobloxopen/atlas-app-toolkit/gorm/resource"
+import "github.com/tiny/atlas-app-toolkit/gorm/resource"
 
 type AORM struct {
 	Id int64
@@ -120,7 +122,7 @@ that name will be used during encoding to populate ApplicationName field of `atl
 ```go
 package main
 
-import "github.com/infobloxopen/atlas-app-toolkit/gorm/resource"
+import "github.com/tiny/atlas-app-toolkit/gorm/resource"
 
 func main() {
     resource.RegisterApplication("MyAppName")
@@ -135,5 +137,5 @@ Add `XXX_MessageName() string` method to you PB type. See [Name](resource.go) fu
 
 ## I want to validate/generate atlas.rpc.Identifier for PB types in my application
 
-Implement [resource.Codec](resource.go) for your PB types and you will be given a full control on how `Identifier`s 
-are converted to/from `driver.Value`. 
+Implement [resource.Codec](resource.go) for your PB types and you will be given a full control on how `Identifier`s
+are converted to/from `driver.Value`.

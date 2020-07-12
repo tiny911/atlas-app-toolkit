@@ -4,7 +4,6 @@ This package contains helper functions that support creating, configuring, and r
 
 > gRPC is great — it generates API clients and server stubs in many programming languages, it is fast, easy-to-use, bandwidth-efficient and its design is combat-proven by Google. However, you might still want to provide a traditional RESTful API as well. Reasons can range from maintaining backwards-compatibility, supporting languages or clients not well supported by gRPC to simply maintaining the aesthetics and tooling involved with a RESTful architecture.
 
-
 ## Define REST Endpoints in Proto Schema
 
 You can map your gRPC service methods to one or more REST API endpoints. Google's official gRPC documentation has several great examples [here](https://cloud.google.com/service-management/reference/rpc/google.api#http).
@@ -29,13 +28,13 @@ message GetMessageRequest {
   string user_id = 2;
 }
 ```
+
 This enables the following two alternative HTTP JSON to RPC mappings:
 
-| HTTP Verb | REST Endpoint                     | RPC                                                 |
-| ----------|-----------------------------------|---------------------------------------------------- |
-| `GET`     | `/v1/messages/123456`             | `GetMessage(message_id: "123456")`                  |
-| `GET`     | `/v1/users/me/messages/123456`    | `GetMessage(user_id: "me", message_id: "123456")`    |
-
+| HTTP Verb | REST Endpoint                  | RPC                                               |
+| --------- | ------------------------------ | ------------------------------------------------- |
+| `GET`     | `/v1/messages/123456`          | `GetMessage(message_id: "123456")`                |
+| `GET`     | `/v1/users/me/messages/123456` | `GetMessage(user_id: "me", message_id: "123456")` |
 
 ## HTTP Headers
 
@@ -71,7 +70,7 @@ You can also use the helper function provided in this package.
 import (
     "context"
 
-    "github.com/infobloxopen/atlas-app-toolkit/gateway"
+    "github.com/tiny/atlas-app-toolkit/gateway"
 )
 
 func (s *myServiceImpl) MyMethod(ctx context.Context, req *MyRequest) (*MyResponse, error) {
@@ -130,7 +129,7 @@ To override this behavior, the gRPC Gateway documentation recommends overwriting
 
 ```go
 import (
-	"github.com/infobloxopen/atlas-app-toolkit/gateway"
+	"github.com/tiny/atlas-app-toolkit/gateway"
 )
 
 func init() {
@@ -157,7 +156,7 @@ Also you may use shortcuts like `SetCreated`, `SetUpdated`, and `SetDeleted`.
 
 ```go
 import (
-    "github.com/infobloxopen/atlas-app-toolkit/gateway"
+    "github.com/tiny/atlas-app-toolkit/gateway"
 )
 
 func (s *myService) MyMethod(req *MyRequest) (*MyResponse, error) {
@@ -167,6 +166,7 @@ func (s *myService) MyMethod(req *MyRequest) (*MyResponse, error) {
 ```
 
 ### Response Format
+
 Unless another format is specified in the request `Accept` header that the service supports, services render resources in responses in JSON format by default.
 
 By default for a successful RPC call only the proto response is rendered as JSON, however for a failed call a special format is used, and by calling special methods the response can include additional metadata.
@@ -176,6 +176,7 @@ By default this block only contains a message field, however arbitrary key-value
 This is included at top level, alongside the assumed `result` or `results` field.
 
 Ex.
+
 ```json
 {
   "success": {
@@ -192,6 +193,7 @@ The `NewWithFields(message string, kvpairs ...interface{})` function can be used
 This is included at top level, alongside the assumed `result` or `results` field if the call succeeded despite the error, or alone otherwise.
 
 Ex.
+
 ```json
 {
   "errors": [
@@ -212,6 +214,7 @@ and the first of the `errors` in failed responses will also include the fields.
 Note that this choice affects all responses that pass through `gateway.ForwardResponseMessage`.
 
 Ex:
+
 ```json
 {
   "success": {
@@ -226,6 +229,7 @@ Ex:
 #### Example Success Responses With IncludeStatusDetails(true)
 
 Response with no results
+
 ```json
 {
   "success": {
@@ -237,6 +241,7 @@ Response with no results
 ```
 
 Response with results
+
 ```json
 {
   "success": {
@@ -266,6 +271,7 @@ Response with results
 ```
 
 Response for get by id operation
+
 ```json
 {
   "success": {
@@ -274,15 +280,16 @@ Response for get by id operation
     "code": 200
   },
   "results": {
-      "account_id": 4,
-      "created_at": "2018-05-06T03:53:27.651Z",
-      "updated_at": "2018-05-06T03:53:27.651Z",
-      "id": 5
-   }
+    "account_id": 4,
+    "created_at": "2018-05-06T03:53:27.651Z",
+    "updated_at": "2018-05-06T03:53:27.651Z",
+    "id": 5
+  }
 }
 ```
 
 Response with results and service-defined results tag `rpz_hits`
+
 ```json
 {
   "success": {
@@ -322,11 +329,14 @@ Response with results and service-defined results tag `rpz_hits`
 ```
 
 ## Query String Filtering
+
 When using the collection operators with the grpc-gateway, extraneous errors may
 be logged during rpcs as the query string is parsed that look like this:
+
 ```
 field not found in *foo.ListFoobarRequest: _order_by
 ```
+
 and the usage of any of the collection operator field names without the leading
 underscore (`order_by`, `filter`,... instead of `_order_by`, `filter`,...) in
 query strings may result in the error `unsupported field type reflect.Value`,
@@ -334,10 +344,10 @@ being returned.
 
 This can be resolved by overwriting the default filter for each rpc with these
 operators using the one defined in [filter.go](filter.go).
+
 ```golang
 filter_Foobar_List_0 = gateway.DefaultQueryFilter
 ```
-
 
 ### Translating gRPC Errors to HTTP
 
@@ -350,7 +360,7 @@ Here's an example that shows how to use [`DefaultProtoErrorHandler`](gateway/err
 ```go
 import (
     "github.com/grpc-ecosystem/grpc-gateway/runtime"
-    "github.com/infobloxopen/atlas-app-toolkit/gateway"
+    "github.com/tiny/atlas-app-toolkit/gateway"
 
     "github.com/yourrepo/yourapp"
 )

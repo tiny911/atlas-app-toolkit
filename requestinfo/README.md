@@ -1,11 +1,12 @@
 # Request Info
 
 Request Info contains following information about the request:
+
 ```
    ApplicationName string
    ResourceType    string
    ResourceId      string
-   OperationType   int //Constant 
+   OperationType   int //Constant
 ```
 
 This package provide annotator witch extracts information from request and return it as metadata.
@@ -18,7 +19,7 @@ You can enable support for Request Info in your gRPC-Server by adding the annota
 import (
   ...
   ...
-  "github.com/infobloxopen/atlas-app-toolkit/requestinfo"
+  "github.com/tiny/atlas-app-toolkit/requestinfo"
 )
 func main() {
     server := grpc.NewServer(
@@ -32,7 +33,9 @@ func main() {
 ## Extracting the Request Info
 
 Once the middleware is included, the function below can be used to extract the Request Info anywhere it is needed.
+
 ```golang
 requestInfo, err := requestinfo.FromContext(ctx)
 ```
+
 The `err` represent error if something went wrong.

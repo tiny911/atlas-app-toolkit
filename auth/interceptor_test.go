@@ -8,9 +8,9 @@ import (
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_logrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
-	mock_transport "github.com/infobloxopen/atlas-app-toolkit/mocks/transport"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
+	mock_transport "github.com/tiny/atlas-app-toolkit/mocks/transport"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )

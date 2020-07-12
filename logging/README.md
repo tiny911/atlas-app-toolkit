@@ -15,9 +15,10 @@ The `LogLevelInterceptor` needs to be placed after the `grpc_logrus.UnaryServerI
 Note that the `LogLevelInterceptor` cannot effect whether or not the Info level message in the `grpc_logrus.UnaryServerInterceptor` is printed or not.
 
 The middleware chain code should look something like this:
+
 ```golang
 import (
-	"github.com/infobloxopen/atlas-app-toolkit/logging"
+	"github.com/tiny/atlas-app-toolkit/logging"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 )
@@ -38,12 +39,13 @@ func main() {
 
 For grpc-gateway support, the `MetadataAnnotator` should also be added to the gateway.
 Using the toolkit's server package, that setup looks something like this:
+
 ```golang
 import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/infobloxopen/atlas-app-toolkit/gateway"
-	"github.com/infobloxopen/atlas-app-toolkit/logging"
-	"github.com/infobloxopen/atlas-app-toolkit/server"
+	"github.com/tiny/atlas-app-toolkit/gateway"
+	"github.com/tiny/atlas-app-toolkit/logging"
+	"github.com/tiny/atlas-app-toolkit/server"
 )
 
 func main() {
@@ -67,6 +69,7 @@ func main() {
 When using the metadata annotator and the grpc-gateway, http requests using headers `-H "log-trace-key: <value>"` and `-H "log-level: <level>"` will be stored in the grpc metadata for consumption by the interceptor.
 
 Without the grpc-gateway, the [metadata](https://github.com/grpc/grpc-go/blob/master/Documentation/grpc-metadata.md) has to be added to the request context directly.
+
 ```golang
 ctx := metadata.AppendToOutgoingContext(ctx, "log-level", "debug", "log-trace-key", "foobar")
 
@@ -82,6 +85,7 @@ The `GatewayLoggingInterceptor` should be in the middleware chain before any tha
 The `GatewayLoggingSentinelInterceptor` should be the very last middleware in the chain.
 
 For example:
+
 ```golang
 ...
 	grpc_middleware.ChainUnaryClient(
@@ -101,6 +105,7 @@ The helper function `CopyLoggerWithLevel` can be used to make a deep copy of a l
 ## Generate mocks
 
 Mocks generated with this [tool](https://github.com/maxbrunsfeld/counterfeiter). Generate mocks for logging tests via:
+
 ```makefile
     make mocks
 ```

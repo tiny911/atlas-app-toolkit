@@ -1,14 +1,17 @@
 # Integration
 
 This package contains helper functions that support integration testing of Go services and applications. The main library utilities are listed below.
+
 - Starting and stopping Docker containers inside Go tests
 - Creating JSON Web Tokens for testing gRPC and REST requests
 - Launching a Postgres database to tests against
 - Building and executing Go binaries
 
 ## Examples
+
 ### Start and Stop Docker Containers
-Testing your application or service in isolation might be impossible. Your project may require a database or supporting services in order to function reliably. 
+
+Testing your application or service in isolation might be impossible. Your project may require a database or supporting services in order to function reliably.
 
 Enter Docker containers.
 
@@ -18,18 +21,17 @@ You can prop-up Docker containers to substitute backend databases or services. T
 
 Awesome. Example time!
 
-
 ```go
 import (
 	"log"
 	"testing"
 
-	"github.com/infobloxopen/atlas-app-toolkit/integration"
+	"github.com/tiny/atlas-app-toolkit/integration"
 )
 
 // TestMain does pre-test set up
 func TestMain(m *testing.M) {
-  // RunContainer takes a docker image, docker run arguments, and 
+  // RunContainer takes a docker image, docker run arguments, and
   // runtime-specific arguments
   stop, err := integration.RunContainer(
     "redis:latest",
@@ -46,7 +48,7 @@ func TestMain(m *testing.M) {
     log.Fatal("unable to start test redis container")
   }
   // stop and remove container after testing
-  defer stop() 
+  defer stop()
   m.Run()
 }
 ```
@@ -63,7 +65,7 @@ import (
 	"log"
 	"testing"
 
-	"github.com/infobloxopen/atlas-app-toolkit/integration"
+	"github.com/tiny/atlas-app-toolkit/integration"
 	_ "github.com/lib/pq"
 )
 
@@ -110,7 +112,7 @@ func TestMyEndpoint(t *testing.T) {
   if err := myTestDatabase.Reset(); err != nil{
     t.Fatalf("unable to reset database schema: %v", err)
   }
-  ... 
+  ...
 }
 ```
 
@@ -127,7 +129,7 @@ import (
 	"log"
 	"testing"
 
-	"github.com/infobloxopen/atlas-app-toolkit/integration"
+	"github.com/tiny/atlas-app-toolkit/integration"
 )
 
 func TestMain(m *testing.M) {
@@ -140,6 +142,7 @@ func TestMain(m *testing.M) {
   m.Run()
 }
 ```
+
 #### Running the Binary
 
 ```go
@@ -147,7 +150,7 @@ import (
 	"log"
 	"testing"
 
-	"github.com/infobloxopen/atlas-app-toolkit/integration"
+	"github.com/tiny/atlas-app-toolkit/integration"
 )
 
 func TestMain(m *testing.M) {
@@ -165,17 +168,17 @@ func TestMain(m *testing.M) {
 }
 
 ```
+
 ### Finding Open Ports
 
 To help avoid port conflicts, the `integration` package provides a simple helper that finds an port on the testing machine.
-
 
 ```go
 import (
 	"log"
 	"testing"
 
-	"github.com/infobloxopen/atlas-app-toolkit/integration"
+	"github.com/tiny/atlas-app-toolkit/integration"
 )
 
 func TestMain(m *testing.M) {
@@ -194,7 +197,7 @@ import (
 	"log"
 	"testing"
 
-	"github.com/infobloxopen/atlas-app-toolkit/integration"
+	"github.com/tiny/atlas-app-toolkit/integration"
 )
 
 func TestMain(m *testing.M) {
@@ -218,7 +221,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/infobloxopen/atlas-app-toolkit/integration"
+	"github.com/tiny/atlas-app-toolkit/integration"
 )
 
 func TestMyEndpoint(t *testing.T) {
@@ -246,7 +249,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/infobloxopen/atlas-app-toolkit/integration"
+	"github.com/tiny/atlas-app-toolkit/integration"
 )
 
 func TestMyEndpoint(t *testing.T) {
@@ -270,7 +273,7 @@ And the same for gRPC requests.
 import (
 	"testing"
 
-	"github.com/infobloxopen/atlas-app-toolkit/integration"
+	"github.com/tiny/atlas-app-toolkit/integration"
 )
 
 func TestMyGRPCEndpoint(t *testing.T) {
@@ -285,4 +288,3 @@ func TestMyGRPCEndpoint(t *testing.T) {
 	...
 }
 ```
-
