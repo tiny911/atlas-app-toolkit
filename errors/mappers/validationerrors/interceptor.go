@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/tiny/atlas-app-toolkit/util"
+	"github.com/tiny911/atlas-app-toolkit/util"
 	"google.golang.org/grpc"
 )
 

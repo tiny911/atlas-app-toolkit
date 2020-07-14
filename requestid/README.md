@@ -17,7 +17,7 @@ If you also use the grpc_logrus interceptor, the request-id middleware should be
 import (
   ...
   ...
-  "github.com/tiny/atlas-app-toolkit/requestid"
+  "github.com/tiny911/atlas-app-toolkit/requestid"
 )
 func main() {
     server := grpc.NewServer(

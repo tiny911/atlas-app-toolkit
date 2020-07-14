@@ -10,7 +10,7 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
-	mock_transport "github.com/tiny/atlas-app-toolkit/mocks/transport"
+	mock_transport "github.com/tiny911/atlas-app-toolkit/mocks/transport"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )

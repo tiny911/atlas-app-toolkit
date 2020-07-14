@@ -1,5 +1,5 @@
 # Absolute github repository name.
-REPO := github.com/tiny/atlas-app-toolkit
+REPO := github.com/tiny911/atlas-app-toolkit
 
 # Build directory absolute path.
 PROJECT_ROOT = $(CURDIR)
@@ -43,4 +43,4 @@ gen: .gen-query .gen-errdetails .gen-errfields
 .PHONY: mocks
 mocks:
 	GO111MODULE=off go get -u github.com/maxbrunsfeld/counterfeiter
-	counterfeiter --fake-name ServerStreamMock -o ./logging/mocks/server_stream.go $(GOPATH)/src/github.com/tiny/atlas-app-toolkit/vendor/google.golang.org/grpc/stream.go ServerStream
+	counterfeiter --fake-name ServerStreamMock -o ./logging/mocks/server_stream.go $(GOPATH)/src/github.com/tiny911/atlas-app-toolkit/vendor/google.golang.org/grpc/stream.go ServerStream

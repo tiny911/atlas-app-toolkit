@@ -8,7 +8,7 @@ import (
 
 	"google.golang.org/grpc/codes"
 
-	"github.com/tiny/atlas-app-toolkit/errors"
+	"github.com/tiny911/atlas-app-toolkit/errors"
 )
 
 // DecodePageToken decodes page token from the user's request.

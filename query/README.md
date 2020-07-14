@@ -16,7 +16,7 @@ In order to get _collection operators_ in your app you need the following:
 - Add _collection operator_ types to a request message. You're free to use any subset of them.
 
 ```proto
-import "github.com/tiny/atlas-app-toolkit/query/collection_operators.proto";
+import "github.com/tiny911/atlas-app-toolkit/query/collection_operators.proto";
 
 message MyListRequest {
     infoblox.api.Filtering filtering = 1;

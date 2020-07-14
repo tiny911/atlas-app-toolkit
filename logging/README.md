@@ -18,7 +18,7 @@ The middleware chain code should look something like this:
 
 ```golang
 import (
-	"github.com/tiny/atlas-app-toolkit/logging"
+	"github.com/tiny911/atlas-app-toolkit/logging"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 )
@@ -43,9 +43,9 @@ Using the toolkit's server package, that setup looks something like this:
 ```golang
 import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/tiny/atlas-app-toolkit/gateway"
-	"github.com/tiny/atlas-app-toolkit/logging"
-	"github.com/tiny/atlas-app-toolkit/server"
+	"github.com/tiny911/atlas-app-toolkit/gateway"
+	"github.com/tiny911/atlas-app-toolkit/logging"
+	"github.com/tiny911/atlas-app-toolkit/server"
 )
 
 func main() {

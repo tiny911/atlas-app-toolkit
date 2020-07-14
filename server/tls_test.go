@@ -11,8 +11,8 @@ import (
 
 	"context"
 
-	"github.com/tiny/atlas-app-toolkit/server/testdata"
-	"github.com/tiny/atlas-app-toolkit/servertest"
+	"github.com/tiny911/atlas-app-toolkit/server/testdata"
+	"github.com/tiny911/atlas-app-toolkit/servertest"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )

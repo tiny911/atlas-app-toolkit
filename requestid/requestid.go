@@ -8,7 +8,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/metadata"
 
-	"github.com/tiny/atlas-app-toolkit/gateway"
+	"github.com/tiny911/atlas-app-toolkit/gateway"
 )
 
 // DefaultRequestIDKey is the metadata key name for request ID

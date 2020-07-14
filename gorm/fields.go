@@ -10,7 +10,7 @@ import (
 	"github.com/golang/protobuf/protoc-gen-go/generator"
 	"github.com/jinzhu/gorm"
 
-	"github.com/tiny/atlas-app-toolkit/query"
+	"github.com/tiny911/atlas-app-toolkit/query"
 )
 
 // DefaultFieldSelectionConverter performs default convertion for FieldSelection collection operator

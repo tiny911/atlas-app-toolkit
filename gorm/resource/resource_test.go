@@ -11,7 +11,7 @@ import (
 	"bytes"
 
 	"github.com/golang/protobuf/proto"
-	resourcepb "github.com/tiny/atlas-app-toolkit/rpc/resource"
+	resourcepb "github.com/tiny911/atlas-app-toolkit/rpc/resource"
 )
 
 type TestCodec struct{}

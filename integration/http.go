@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/tiny/atlas-app-toolkit/auth"
+	"github.com/tiny911/atlas-app-toolkit/auth"
 )
 
 // MakeStandardRequest issues an HTTP request a specific endpoint with Atlas-specific

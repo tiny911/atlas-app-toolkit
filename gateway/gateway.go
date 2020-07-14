@@ -6,7 +6,7 @@ import (
 	"net/url"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/tiny/atlas-app-toolkit/query"
+	"github.com/tiny911/atlas-app-toolkit/query"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

@@ -8,8 +8,8 @@ import (
 
 	"google.golang.org/grpc/codes"
 
-	"github.com/tiny/atlas-app-toolkit/rpc/errdetails"
-	"github.com/tiny/atlas-app-toolkit/rpc/errfields"
+	"github.com/tiny911/atlas-app-toolkit/rpc/errdetails"
+	"github.com/tiny911/atlas-app-toolkit/rpc/errfields"
 )
 
 func initCtx() context.Context {

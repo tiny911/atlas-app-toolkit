@@ -6,7 +6,7 @@ import (
 	"reflect"
 
 	"github.com/golang/protobuf/proto"
-	"github.com/tiny/atlas-app-toolkit/query"
+	"github.com/tiny911/atlas-app-toolkit/query"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 )

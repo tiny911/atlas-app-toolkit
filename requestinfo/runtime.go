@@ -2,7 +2,7 @@ package requestinfo
 
 import (
 	"context"
-	"github.com/tiny/atlas-app-toolkit/gateway"
+	"github.com/tiny911/atlas-app-toolkit/gateway"
 )
 
 func FromContext(ctx context.Context) (RequestInfo, error) {

@@ -4,7 +4,7 @@ package infoblox.api;
 
 import "protoc-gen-swagger/options/annotations.proto";
 
-option go_package = "github.com/tiny/atlas-app-toolkit/query;query";
+option go_package = "github.com/tiny911/atlas-app-toolkit/query;query";
 
 // SortCriteria represents sort criteria
 message SortCriteria {

@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/tiny/atlas-app-toolkit/auth"
+	"github.com/tiny911/atlas-app-toolkit/auth"
 	"google.golang.org/grpc/metadata"
 )
 

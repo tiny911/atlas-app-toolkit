@@ -15,7 +15,7 @@ import (
 
 	"time"
 
-	"github.com/tiny/atlas-app-toolkit/rpc/resource"
+	"github.com/tiny911/atlas-app-toolkit/rpc/resource"
 )
 
 // HandleFieldPath converts fieldPath to appropriate db string for use in where/order by clauses

@@ -9,7 +9,7 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/jinzhu/gorm"
-	"github.com/tiny/atlas-app-toolkit/rpc/errdetails"
+	"github.com/tiny911/atlas-app-toolkit/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

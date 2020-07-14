@@ -3,7 +3,7 @@ package requestinfo
 import (
 	"context"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/tiny/atlas-app-toolkit/rpc/resource"
+	"github.com/tiny911/atlas-app-toolkit/rpc/resource"
 	"google.golang.org/grpc/metadata"
 	"io"
 	"net/http"
